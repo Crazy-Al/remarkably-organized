@@ -17,5 +17,15 @@ export default defineConfig({
 		fs: {
 			allow: ['./src', './static'],
 		},
+		// ADD THIS SECTION BELOW
+		watch: {
+			ignored: [
+				'**/.pnpm-store/**',
+				'**/node_modules/**',
+				'**/.svelte-kit/**',
+				'**/.git/**',
+				'.gitignore',
+			],
+		},
 	},
 });

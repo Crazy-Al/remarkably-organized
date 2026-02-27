@@ -12,6 +12,7 @@
 	import AgendaWeek from './AgendaWeek.svelte';
 	import AgendaDay from './AgendaDay.svelte';
 	import AgendaSplitDay from './AgendaSplitDay.svelte';
+	import AgendaQuadDay from './AgendaQuadDay.svelte';
 	import TaskProgress from './TaskProgress.svelte';
 
 	let {
@@ -68,6 +69,8 @@
 		<AgendaDay />
 	{:else if display === 'agendasplit-day'}
 		<AgendaSplitDay />
+	{:else if display === 'agendaquad-day'}
+		<AgendaQuadDay />
 	{:else if display === 'notes-quarter'}
 		<NotesQuarter
 			months={settings.months.filter(

@@ -31,6 +31,7 @@ export type PageTemplate =
 	| 'agenda-week'
 	| 'agenda-day'
 	| 'agendasplit-day'
+	| 'agendaquad-day'
 	| 'notes-year'
 	| 'notes-quarter'
 	| 'notes-month'
