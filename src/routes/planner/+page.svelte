@@ -39,6 +39,7 @@
 		{ name: 'Calendar', value: 'calendar-month' },
 		{ name: 'Calendar - With Notes', value: 'calendar-month-with-notes' },
 		{ name: 'Agenda - Daily', value: 'agenda-day' },
+		{ name: 'Agenda Split - Daily', value: 'agendasplit-day' },
 		{ name: 'Agenda - Weekly', value: 'agenda-week' },
 		{ name: 'Notes - Yearly', value: 'notes-year' },
 		{ name: 'Notes - Quarterly', value: 'notes-quarter' },

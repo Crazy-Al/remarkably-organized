@@ -18,7 +18,7 @@ If the selected settings makes a very large PDF, you might have to use a powerfu
 
 ![Remarkably Organized Print Instructions](./static/remarkably-organized-print-instructions.jpg)
 
-## Development
+## Development Environment
 
 The web app is built using the Svelte framework.
 Knowledge of web technologies is required to run this app.
@@ -79,3 +79,92 @@ Here's a sample command. This command just needs to be run every day once a day.
 ### Insert events from ICS file
 
 Add an input to add a link to a public ICS file that could pull in events into the calendar.
+
+## Development
+
+### How to Add a New Page Template
+
+Adding a new page template (like a custom daily agenda, a new dotted grid, or a tracker) requires updating a few different files across the codebase so the Svelte app knows it exists, how to render it, and how to display it in the settings menu.
+
+Follow these 4 steps to add a new template:
+
+#### Step 1: Create the Template Component
+
+Create a new Svelte file for your template inside the components folder (e.g., `src/lib/components/MyCustomTemplate.svelte`).
+
+This component will receive the timeframe and settings as props. Use CSS Grid or Flexbox to lay out the page, keeping in mind that e-ink tablets require precise sizing.
+
+```svelte
+<script lang="ts">
+	import type { Day, PlannerSettings } from '$lib';
+
+	let { day = {} as Day, settings = {} as PlannerSettings } = $props();
+</script>
+
+<div class="my-custom-layout"></div>
+
+<style lang="scss">
+	.my-custom-layout {
+		display: flex;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+```
+
+#### Step 2: Add the Template ID to the Global Types
+
+Before you can use your new template, you must add its unique string ID to the global TypeScript definitions so the compiler allows it.
+
+Open `src/lib/state/collection.ts`, locate the `PageTemplate` type definition, and add your unique string to the list:
+
+```typescript
+export type PageTemplate =
+	| 'blank'
+	// ... other templates ...
+	| 'agenda-day'
+	| 'my-custom-template' // <-- Add your new template ID here
+	| 'habit-year-by-month';
+```
+
+#### Step 3: Add it to the Settings UI Dropdown
+
+To allow users to select your new template, you need to add it to the settings menu array.
+
+Open `src/routes/planner/+page.svelte` and locate the array that populates the dropdown options for the relevant page type (e.g., day templates, week templates). Add a new object with the display `name` and your exact `value` ID:
+
+```javascript
+// Inside src/routes/planner/+page.svelte
+{ name: 'Agenda - Daily', value: 'agenda-day' },
+{ name: 'My Custom Template', value: 'my-custom-template' }, // <-- Add this
+```
+
+#### Step 4: Render the Template in `Page.svelte`
+
+Finally, you need to tell the main `Page.svelte` component to render your new file when the user selects it from the dropdown.
+
+Open `src/lib/components/Page.svelte`, import your new file at the top, and add it to the conditional rendering block:
+
+```svelte
+<script lang="ts">
+	import MyCustomTemplate from './MyCustomTemplate.svelte';
+	// ... other imports
+</script>
+
+<div class="page {display.split('-')[0]}">
+	{#if display === 'agenda-day'}
+		<AgendaDay />
+	{:else if display === 'my-custom-template'}
+		<MyCustomTemplate />
+	{/if}
+</div>
+```
+
+**Note on Styling:** The wrapper `<div class="page ...">` automatically applies a CSS class based on the first word of your template's ID (e.g., `my-custom-template` applies the `.my` class). If your template needs specific padding, scroll to the `<style>` block at the bottom of `Page.svelte` and add your prefix class there:
+
+```scss
+&.agenda,
+&.my {
+	padding: 0 0 1rem;
+}
+```

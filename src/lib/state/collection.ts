@@ -30,6 +30,7 @@ export type PageTemplate =
 	| 'calendar-month-with-notes'
 	| 'agenda-week'
 	| 'agenda-day'
+	| 'agendasplit-day'
 	| 'notes-year'
 	| 'notes-quarter'
 	| 'notes-month'

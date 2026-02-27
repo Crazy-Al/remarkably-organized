@@ -11,6 +11,7 @@
 	import HabitsYear from './HabitsYear.svelte';
 	import AgendaWeek from './AgendaWeek.svelte';
 	import AgendaDay from './AgendaDay.svelte';
+	import AgendaSplitDay from './AgendaSplitDay.svelte';
 	import TaskProgress from './TaskProgress.svelte';
 
 	let {
@@ -65,6 +66,8 @@
 		<AgendaWeek {timeframe} startWeekOnSunday={settings.date.startWeekOnSunday} />
 	{:else if display === 'agenda-day'}
 		<AgendaDay />
+	{:else if display === 'agendasplit-day'}
+		<AgendaSplitDay />
 	{:else if display === 'notes-quarter'}
 		<NotesQuarter
 			months={settings.months.filter(
@@ -144,7 +147,8 @@
 		&.todo {
 			padding: 0 2rem 1rem;
 		}
-		&.agenda {
+		&.agenda,
+		&.agendasplit {
 			padding: 0 0 1rem;
 		}
 	}
