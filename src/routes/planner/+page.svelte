@@ -50,6 +50,7 @@
 		{ name: 'Notes - Daily', value: 'notes-day' },
 		{ name: 'Habit Checkboxes - Grouped by Week', value: 'habit-year-by-week' },
 		{ name: 'Habit Checkboxes - Grouped by Month', value: 'habit-year-by-month' },
+		{ name: 'Test Template', value: 'test' },
 	];
 
 	const font = $derived(fonts.find((f) => f.name === settings.design.font) ?? fonts[0]);

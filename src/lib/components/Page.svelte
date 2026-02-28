@@ -14,6 +14,7 @@
 	import AgendaSplitDay from './AgendaSplitDay.svelte';
 	import AgendaQuadDay from './AgendaQuadDay.svelte';
 	import TaskProgress from './TaskProgress.svelte';
+	import Test from './Test.svelte';
 
 	let {
 		display = 'dotted' as Collection['type'],
@@ -71,6 +72,8 @@
 		<AgendaSplitDay />
 	{:else if display === 'agendaquad-day'}
 		<AgendaQuadDay />
+	{:else if display === 'test'}
+		<Test />
 	{:else if display === 'notes-quarter'}
 		<NotesQuarter
 			months={settings.months.filter(
